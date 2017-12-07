@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(
-    name='PyFileMaker',
+    name='PixPyFileMaker',
     version="3.3",
     description='Python Object Wrapper for FileMaker Server XML Interface',
     classifiers=[
@@ -20,10 +20,10 @@ setup(
     keywords=['FileMaker'],
     author='Klokan Petr Pridal, Pieter Claerhout, Marcin Kawa, Billy Peake',
     author_email='klokan@klokan.cz, pieter@yellowduck.be, kawa.macin@gmail.com, peake100@gmail.com',
-    url='https://github.com/aeguana/PyFileMaker',
-    download_url='https://github.com/aeguana/PyFileMaker/releases',
+    url='https://github.com/aeguana/PixPyFileMaker',
+    download_url='https://github.com/aeguana/PixPyFileMaker/releases',
     license='http://www.opensource.org/licenses/bsd-license.php',
     platforms = ['any'],
-    packages=['PyFileMaker'],
+    packages=['PixPyFileMaker'],
     install_requires=['requests'],
 )

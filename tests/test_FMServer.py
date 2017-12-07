@@ -25,7 +25,7 @@
 from nose import with_setup
 from nose.tools import raises
 import ConfigParser, os
-from PyFileMaker import FMServer
+from PixPyFileMaker import FMServer
 
 class TestFMServer:
     

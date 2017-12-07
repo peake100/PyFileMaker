@@ -16,7 +16,7 @@ import collections
 import datetime
 
 # Import the FM modules
-import PyFileMaker.FMResultset as FMResultset
+import PixPyFileMaker.FMResultset as FMResultset
 from .FMError import *
 
 uu = urllib.parse.urlencode
@@ -61,7 +61,7 @@ class FMServer:
 			for obj in fm_data:
 				ml.append(FMServer.toJSON(obj))
 			return ml
-		elif str(type(fm_data)) == "<class 'PyFileMaker.FMData.FMData'>" or str(type(fm_data)) == "<class 'PyFileMaker.FMData.makeFMData.<locals>.FMData'>":
+		elif str(type(fm_data)) == "<class 'PixPyFileMaker.FMData.FMData'>" or str(type(fm_data)) == "<class 'PixPyFileMaker.FMData.makeFMData.<locals>.FMData'>":
 			d = {}
 			for field in fm_data:
 				orig_f = field
@@ -88,7 +88,7 @@ class FMServer:
 
 	def setDb(self, db):
 		"""Select the database to use. You don't need to specify the file
-		extension. PyFileMaker will do this automatically."""
+		extension. PixPyFileMaker will do this automatically."""
 
 		self._db = db
 
@@ -673,7 +673,7 @@ class FMServer:
 			url = "%s?%s" % (self._buildUrl(), request)
 
 		if self._debug:
-			print('[PyFileMaker DEBUG] ', url)
+			print('[PixPyFileMaker DEBUG] ', url)
 
 		resp = requests.get(
 			url = url,

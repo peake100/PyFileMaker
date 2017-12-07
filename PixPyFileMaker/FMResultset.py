@@ -10,7 +10,7 @@
 import re
 
 # Import the FMPro modules
-import PyFileMaker.FMXML as FMXML
+import PixPyFileMaker.FMXML as FMXML
 from .FMData import makeFMData
 
 class FMResultset(FMXML.FMXML):

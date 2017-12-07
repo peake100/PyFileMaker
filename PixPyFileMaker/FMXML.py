@@ -10,7 +10,7 @@
 from pprint import pformat
 
 # Import the FM modules
-import PyFileMaker.xml2obj as xml2obj
+import PixPyFileMaker.xml2obj as xml2obj
 from .FMError import *
 
 
