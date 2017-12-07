@@ -7,21 +7,18 @@
 # http://www.yellowduck.be/filemaker/
 
 # Import the main modules
-import string
-from types import *
 import re
 
 # Import the FMPro modules
-import xml2obj
-import FMXML
-from FMError import *
-from FMData import makeFMData
+import PyFileMaker.FMXML as FMXML
+from .FMData import makeFMData
 
 class FMResultset(FMXML.FMXML):
 	"""Class defining the information about a resultset."""
 
 	def __init__(self, data):
 		"""Class constructor"""
+		super().__init__()
 
 		self.data = data
 		self.errorcode = -1
@@ -66,7 +63,7 @@ class FMResultset(FMXML.FMXML):
 				if fieldname.find('::') != -1:
 					subfield = fieldname[:fieldname.find('::')]
 					subname = fieldname[fieldname.find('::')+2:]
-					if not recordDict.has_key(subfield):
+					if not subfield in recordDict:
 						recordDict[subfield] = dict()
 					recordDict[subfield][subname] = recordDict[fieldname]
 					del(recordDict[fieldname])
@@ -81,7 +78,7 @@ class FMResultset(FMXML.FMXML):
 			for subnode in self.doGetXMLElements(record, 'relatedset'):
 
 				subnodename = subnode.getAttribute('table')
-				if (subnode.getAttribute('count')) > 0 and not recordDict.has_key(subnodename):
+				if (subnode.getAttribute('count')) > 0 and not subnodename in recordDict:
 					recordDict[subnodename] = []
 
 				for subrecord in self.doGetXMLElements(subnode, 'record'):
@@ -99,7 +96,7 @@ class FMResultset(FMXML.FMXML):
 						if fieldname.find('::') != -1:
 							subfield = fieldname[:fieldname.find('::')]
 							subname = fieldname[fieldname.find('::')+2:]
-							if not subrecordDict.has_key(subfield):
+							if not subfield in subrecordDict:
 								subrecordDict[subfield] = dict()
 							subrecordDict[subfield][subname] = subrecordDict[fieldname]
 							del(subrecordDict[fieldname])
@@ -129,39 +126,39 @@ class FMResultset(FMXML.FMXML):
 		"""Shows the contents of our resultset."""
 
 		if xml == 0:
-			print 'Errorcode:', self.errorcode
-			print 
+			print('Errorcode:', self.errorcode)
+			print()
 			
-			print 'Product information:'
+			print('Product information:')
 			for key in self.product.keys():
-				print '	 ', key.encode('UTF-8'),
-				print '->', self.product[key].encode('UTF-8')
-			print
+				print('	 ', key.encode('UTF-8')),
+				print('->', self.product[key].encode('UTF-8'))
+			print()
 			
-			print 'Database information:'
+			print('Database information:')
 			for key in self.database.keys():
-				print '	 ', key.encode('UTF-8'),
-				print'->', self.database[key].encode('UTF-8')
-			print
+				print('	 ', key.encode('UTF-8')),
+				print('->', self.database[key].encode('UTF-8'))
+			print()
 			
-			print 'Metadata:'
+			print('Metadata:')
 			for field in self.metadata.keys():
-				print
-				print '	  ', field.encode('UTF-8')
+				print()
+				print('	  ', field.encode('UTF-8'))
 				for property in self.metadata[field]:
-					print '		  ', property.encode('UTF-8'),
-					print '->', self.metadata[field][property].encode('UTF-8') 
-			print
+					print('		  ', property.encode('UTF-8')),
+					print('->', self.metadata[field][property].encode('UTF-8'))
+			print()
 
-			print 'Records:'
+			print('Records:')
 			for record in self.resultset:
-				print
+				print()
 				for column in record:
-					print '	  ', column.encode('UTF-8'),
-					if type(record[column]) == UnicodeType:
-						print '->', record[column].encode('UTF-8')
+					print('	  ', column.encode('UTF-8')),
+					if isinstance(record[column], str):
+						print('->', record[column].encode('UTF-8'))
 					else:
-						print '->', record[column]
+						print('->', record[column])
 
 		else:
 			tags = [
@@ -180,7 +177,7 @@ class FMResultset(FMXML.FMXML):
 			xml = self.data
 
 			for tag in tags:
-				xml = string.replace(xml, '></' + tag, '>\n</' + tag)
-				xml = string.replace(xml, '><' + tag, '>\n<' + tag)
+				xml = str.replace(xml, '></' + tag, '>\n</' + tag)
+				xml = str.replace(xml, '><' + tag, '>\n<' + tag)
 
-			print xml
+			print(xml)

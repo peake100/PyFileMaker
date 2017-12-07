@@ -2,8 +2,6 @@
 Borrowed from wxPython XML tree demo and modified.
 """
 
-import sys
-import string
 from xml.parsers import expat
 
 class Element:
@@ -30,7 +28,7 @@ class Element:
 	def getData(self):
 		'Get the cdata'
 		## HACK: string.strip to remove unneeded spaces.
-		return string.strip( self.cdata )
+		return str.strip( self.cdata )
 		
 	def getElements(self,name=''):
 		'Get a list of child elements'
@@ -72,7 +70,7 @@ class Xml2Obj:
 		'SAX character data event handler'
 		## HACK: to preserve the newlines
 		#if string.strip(data):
-		data = data.encode("utf-8")
+		# data = data.encode("utf-8")
 		element = self.nodeStack[-1]
 		element.cdata += data
 		return
